@@ -1,31 +1,65 @@
+ï»¿
+// WorkerManager.h: WorkerManager åº”ç”¨ç¨‹åºçš„ä¸»å¤´æ–‡ä»¶
+//
 #pragma once
+
+#ifndef __AFXWIN_H__
+	#error "åœ¨åŒ…å«æ­¤æ–‡ä»¶ä¹‹å‰åŒ…å« 'pch.h' ä»¥ç”Ÿæˆ PCH"
+#endif
+
+#include "resource.h"       // ä¸»ç¬¦å·
+
 #include <iostream>
-#include "Worker.h"
-#include "Boss.h"
-#include "Employee.h"
-#include "Manager.h"
 #include <fstream>
-#define FILENAME "emp_file.txt"
+#include <string>
+#include <list>
+#define FILENAME "file.txt"
 using namespace std;
+
+
+// CWorkerManagerApp:
+// æœ‰å…³æ­¤ç±»çš„å®ç°ï¼Œè¯·å‚é˜… WorkerManager.cpp
+//
+
+class CWorkerManagerApp : public CWinApp
+{
+public:
+	CWorkerManagerApp() noexcept;
+
+
+// é‡å†™
+public:
+	virtual BOOL InitInstance();
+	virtual int ExitInstance();
+
+// å®ç°
+	afx_msg void OnAppAbout();
+	DECLARE_MESSAGE_MAP()
+};
+
+extern CWorkerManagerApp theApp;
+
+struct msg
+{
+	int id;//èŒå·¥ç¼–å·
+	string name;//å§“å
+	string job;//çº§åˆ«
+	int wage;//è–ªæ°´
+	int sum;//èŒå·¥æ€»æ•°
+};
+
 class WorkerManager
 {
 public:
-	WorkerManager();
-	void ShowMenu();
-	void ExitSystem();
-	void AddEmploy();
-	int MEmpNum;//Í³¼ÆÊı×éÖĞµÄÖ°¹¤ÈËÊı
-	Worker** MEmpArr;//Ô±¹¤Ö¸ÕëÊı×é
-	void save();//±£´æÎÄ¼ş
-	bool FileEmpty;//ÅĞ¶ÏÎÄ¼şÊÇ·ñÎª¿Õ
-	int GetEmpSum();//»ñµÃÖ°¹¤Êı¾İÎÄ¼şÖĞµÄÖ°¹¤ÈËÊı
-	void InitEmp();//³õÊ¼»¯Ö°¹¤
-	void ShowEmp();//ÏÔÊ¾Ö°¹¤Êı¾İ
-	void DelEmp();//É¾³ıÖ°¹¤
-	int ExistOrNot(int id);//ÅĞ¶ÏÖ°¹¤ÊÇ·ñ´æÔÚ
-	void ChaEmp();//ĞŞ¸ÄÖ°¹¤Êı¾İ
-	void FindEmp();//²éÕÒÖ°¹¤
-	void SortEmp();//°´ÕÕÖ°¹¤±àºÅÅÅĞò
-	void CleamFile();//Çå¿ÕÖ°¹¤Êı¾İ
-	~WorkerManager();
+	WorkerManager();//æ„é€ 
+	~WorkerManager();//ææ„
+
+	void Read();//è¯»å–èŒå·¥æ•°æ®
+	void Write();//å¯¼å‡ºèŒå·¥æ•°æ®
+	void Add(CString name, CString job, int wage);//æ·»åŠ èŒå·¥
+
+	list<msg> ls;//æ•°æ®å®¹å™¨
+	int sum;//è®°å½•å‘˜å·¥æ•°é‡
 };
+
+void InitData();
